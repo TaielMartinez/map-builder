@@ -142,13 +142,13 @@ function rotation_cod(y, x, layer){
     
 
 
-    if(y <= y.length){ // adjacent sprite 1
+    if(y <= y.length){ // adjacent sprite 0
         as[0] = fun_comp(map.grid[y+1][x][layer][0], cell);
     } else {
         as[0] = 0;
     }
 
-    if(x < x.length){ // adjacent sprite 2
+    if(x < x.length){ // adjacent sprite 1
         if(x%2 == 0){
             if(y > 0){
                 as[1] = fun_comp(map.grid[y-1][x+1][layer][0], cell);
@@ -162,25 +162,25 @@ function rotation_cod(y, x, layer){
         as[1] = 0;
     }
 
-    if(y > 0 && x < x.length){ // adjacent sprite 3
+    if(y > 0 && x < x.length){ // adjacent sprite 2
         as[2] = map.grid[y-1][x+1][layer][0];
     } else {
         as[2] = 0;
     }
 
-    if(y > 0){ // adjacent sprite 4
+    if(y > 0){ // adjacent sprite 3
         as[3] = map.grid[y-1][x][layer][0];
     } else {
         as[3] = 0;
     }
 
-    if(y > 0 && x > 0){ // adjacent sprite 5
+    if(y > 0 && x > 0){ // adjacent sprite 4
         as[4] = map.grid[y-1][x-1][layer][0];
     } else {
         as[4] = 0;
     }
 
-    if(x > 0){ // adjacent sprite 6
+    if(x > 0){ // adjacent sprite 5
         if(x%2 == 0){
             if(y < y.length){
                 as[5] = map.grid[y+1][x-1][layer][0];

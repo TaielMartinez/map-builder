@@ -5,6 +5,9 @@ $(document).keypress(function(e){
         case 96:   // change toolbar
             if(grid_show) toolbar_alternate();
             break;
+        case 124:   // change toolbar
+            if(grid_show) toolbar_alternate();
+            break;
         case 111:  // show and hide configuration
             if(grid_show) map_config_collapse();
             break;
