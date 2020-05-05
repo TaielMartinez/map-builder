@@ -109,13 +109,19 @@ console.log("capa :"+type)
 
 
 
-
+var clicks_cache = 0;
 //Click hexagon in grid (hexagon cordinates)
 function grid_click(y, x, butt){
     if(butt.button == 0){  // if left click
+        console.log(y)
+        console.log(x)
+        console.log(tool_selected[0])
+        console.log(tool_selected[1])
+
         map.grid[y][x][tool_selected[0]][0] = tool_selected[1];  // print hexagon
         $('.grid_'+tool_selected[0]+' .'+y+'-'+x).css('background-image', 'url("src/img/sprite/'+tool_selected[0]+'/'+map.grid[y][x][tool_selected[0]][0]+'/0'+file_format+'")');
 
+        console.log(map)
 
     } else if(butt.button == 2) { // if rigth click
 
@@ -137,6 +143,14 @@ function grid_click(y, x, butt){
             return
         }
         
+    }
+
+    if(clicks_cache > 20){
+        cache_save()
+        console.log("Auto Save")
+        clicks_cache = 0
+    } else {
+        clicks_cache++
     }
 };
 
@@ -245,6 +259,7 @@ function reparser_unity(){
 
 // save map object in LocalStorage (navegator cache)
 function cache_save(){
+    localStorage.setItem('map', '');
     localStorage.setItem('map', JSON.stringify(map));
 }
 

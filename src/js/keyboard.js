@@ -1,6 +1,6 @@
 // KEYBOARD PRESS //
 $(document).keypress(function(e){
-    console.log(e.which)
+    console.log("tecla:"+ e.which)
     switch (e.which) {
         case 96:   // change toolbar
             if(grid_show) toolbar_alternate();
@@ -17,13 +17,13 @@ $(document).keypress(function(e){
         case 45:  // zoom out
             if(grid_show) {
                 let val = Number($('#grid_zoom').val());
-                showVal(val-1)
+                showVal(val-2)
                 console.log($('#grid_zoom').val())
             }
         case 115:  // zoom out
             if(grid_show) {
                 let val = Number($('#grid_zoom').val());
-                showVal(val-1)
+                showVal(val-2)
                 console.log($('#grid_zoom').val())
             }
         case 61:  // zoom in
