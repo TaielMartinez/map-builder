@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+</head>
+<body>
+
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <div class="input-group">
+
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="">Nombre</span>
+            </div>
+
+            <input type="text" class="form-control" id="map_nombre">
+
+            <div class="input-group-prepend ml-3">
+              <span class="input-group-text" id="">Version</span>
+            </div>
+
+            <input type="number" class="form-control input_material" id="map_version">
+
+            <div class="input-group-prepend ml-3">
+              <span class="input-group-text" id="">Author</span>
+            </div>
+
+            <input type="text" class="form-control" id="map_author">
+            
+            <div class="input-group-prepend ml-3">
+              <span class="input-group-text" id="">Materiales</span>
+            </div>
+
+            <input type="number" class="form-control input_material" id="map_material_1" placeholder="Madera">
+            <input type="number" class="form-control input_material" id="map_material_2" placeholder="Piedra">
+            <input type="number" class="form-control input_material" id="map_material_3" placeholder="Metal">
+            <input type="number" class="form-control input_material" id="map_material_4" placeholder="">
+            <input type="number" class="form-control input_material" id="map_material_5" placeholder="">
+            <input type="number" class="form-control input_material" id="map_material_6" placeholder="">
+            <input type="number" class="form-control input_material" id="map_material_7" placeholder="">
+
+            <button type="button" class="btn btn-success ml-3" id="descargar_mapa">Descargar</button>
+
+          </div>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+    <div class="grilla">
+
+
+      <input id="cargar_mapa" type="file" accept="application/map" />
+
+      <br><br><br><br>
+
+      
+
+
+      <div class="input-group-prepend ml-3">
+        <span class="input-group-text" id="">Filas</span>
+        <input type="number" class="form-control input_material" id="new_filas" placeholder="Filas">
+      </div>
+      
+      <div class="input-group-prepend ml-3">
+        <span class="input-group-text" id="">Columnas</span>
+        <input type="number" class="form-control input_material" id="new_columnas" placeholder="Columnas">
+      </div>
+      <button type="button" class="btn btn-success ml-3 mb-2" id="nuevo_mapa">Nuevo Mapa</button>
+
+      <br><br><br><br>
+
+      <button type="button" class="btn btn-success ml-3 mb-2" id="cargar_cache">Cargar Cache</button>
+
+
+    </div>
+
+    <div class="input-group mb-3 ml-3 mt-2 agregar_fila_columna">
+      <div class="input-group-prepend">
+        <button class="btn btn-outline-secondary" type="button" id="agregar_filas">Agregar Filas</button>
+      </div>
+      <input type="number" class="form-control input_material" id="agregar_filas_num">
+
+      <div class="input-group-prepend ml-4">
+        <button class="btn btn-outline-secondary" type="button" id="agregar_columnas">Agregar Columnas</button>
+      </div>
+      <input type="number" class="form-control input_material" id="agregar_columnas_num">
+
+      <div class="input-group-prepend ml-4">
+        <button class="btn btn-outline-secondary" type="button" id="borrar_filas">Borrar Filas</button>
+      </div>
+      <input type="number" class="form-control input_material" id="borrar_filas_num">
+
+      <div class="input-group-prepend ml-4">
+        <button class="btn btn-outline-secondary" type="button" id="borrar_columnas">Borrar Columnas</button>
+      </div>
+      <input type="number" class="form-control input_material" id="borrar_columnas_num">
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.0.slim.js" integrity="sha256-sCexhaKpAfuqulKjtSY7V9H7QT0TCN90H+Y5NlmqOUE=" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <script>
+
+      let html = "";
+      var cantidad_de_filas;
+      var cantidad_de_columnas;
+      var cantidad_de_img = 4;
+
+      $("#new_filas").val(50)
+      $("#new_columnas").val(50)
+      $("#agregar_filas_num").val(10)
+      $("#agregar_columnas_num").val(10)
+      $("#borrar_filas_num").val(10)
+      $("#borrar_columnas_num").val(10)
+
+
+      $("#nuevo_mapa").click(function(){
+        crear_grilla(false)
+      })
+
+      $("#cargar_mapa").change(function(e) {
+        onChange(e);
+      });
+
+      function onChange(event) {
+        var reader = new FileReader();
+        reader.onload = onReaderLoad;
+        reader.readAsText(event.target.files[0]);
+      }
+
+      function onReaderLoad(event){
+        var obj = JSON.parse(event.target.result);
+        crear_grilla(obj)
+      }
+
+      var matris = new Array;
+
+      function crear_grilla(mapa){
+
+        cantidad_de_filas = $("#new_filas").val()
+        cantidad_de_columnas = $("#new_columnas").val()
+
+        if(mapa){
+          cantidad_de_filas = mapa.mapeo.length;
+          cantidad_de_columnas = mapa.mapeo[1].length;
+          matris = mapa.mapeo;
+          //console.log(mapa.mapeo)
+
+          $("#map_nombre").val(mapa.nombre)
+          $("#map_version").val(mapa.version)
+          $("#map_author").val(mapa.author)
+          $("#map_material_1").val(mapa.material[0])
+          $("#map_material_2").val(mapa.material[1])
+          $("#map_material_3").val(mapa.material[2])
+          $("#map_material_4").val(mapa.material[3])
+          $("#map_material_5").val(mapa.material[4])
+          $("#map_material_6").val(mapa.material[5])
+          $("#map_material_7").val(mapa.material[6])
+        }
+
+        for (let filas = 0; filas < cantidad_de_filas; filas++) {
+            html = html + '<div class="row linea2">';
+            if(!mapa) {matris.push(0); matris[filas] = new Array;}
+            for (let columnas = 0; columnas < cantidad_de_columnas; columnas++) {
+              if(!mapa) {matris[filas].push(0); matris[filas].push(0);}
+
+              html = html + `<div id="`+filas+`-`+columnas+`" onclick="myFunction('`+filas+`','`+columnas+`')" class="cuadrado"></div>
+                             <div id="`+filas+`-`+(columnas+1)+`" onclick="myFunction('`+filas+`','`+(columnas+1)+`')" class="cuadrado2"></div>`;
+              
+              columnas++;
+            }
+            html = html + '</div>';
+        }
+
+        $(".grilla").html(html);
+
+
+        for (let filas = 0; filas < matris.length; filas++) {
+          for (let columnas = 0; columnas < matris[1].length; columnas++) {
+            let id_matris = matris[filas][columnas];
+            let id_matris_1 = id_matris;
+            if(id_matris_1 > cantidad_de_img-1){
+              id_matris_1 = 0;
+            }
+            $('#'+filas+'-'+columnas).css('background-image', 'url(img/' +id_matris_1+ '.png)');
+          }
+        }
+
+      }
+      
+
+      function myFunction(fila, columna) {
+        //console.log(fila+'-'+columna)
+        let id_matris = matris[fila][columna];
+        let id_matris_1 = id_matris+1;
+        if(id_matris_1 > cantidad_de_img-1){
+          id_matris_1 = 0;
+        }
+
+        //console.log(id_matris);
+        $('#'+fila+'-'+columna).css('background-image', 'url(img/' +id_matris_1+ '.png)');
+        matris[fila][columna] = id_matris_1;
+
+        let json_descarga = {
+          json_version: "1.0.0",
+          nombre: $("#map_nombre").val(),
+          version: $("#map_version").val(),
+          author: $("#map_author").val(),
+          material: [
+            $("#map_material_1").val(),
+            $("#map_material_2").val(),
+            $("#map_material_3").val(),
+            $("#map_material_4").val(),
+            $("#map_material_5").val(),
+            $("#map_material_6").val(),
+            $("#map_material_7").val(),
+          ],
+          mapeo: matris
+        }
+
+        localStorage.setItem('mapa', JSON.stringify(json_descarga));
+      }
+      
+      
+      $("#cargar_cache").click(function(){
+        crear_grilla(JSON.parse(localStorage.getItem('mapa')))
+      })
+
+      $("#agregar_filas").click(function(){
+        let json_descarga = {
+          json_version: "1.0.0",
+          nombre: $("#map_nombre").val(),
+          version: $("#map_version").val(),
+          author: $("#map_author").val(),
+          material: [
+            $("#map_material_1").val(),
+            $("#map_material_2").val(),
+            $("#map_material_3").val(),
+            $("#map_material_4").val(),
+            $("#map_material_5").val(),
+            $("#map_material_6").val(),
+            $("#map_material_7").val(),
+          ],
+          mapeo: matris
+        }
+        for (let index = 0; index < $("#agregar_filas_num").val(); index++) {
+          json_descarga.mapeo.push(json_descarga.mapeo[0]);
+                      
+          //delete json_descarga.mapeo[index];
+        }
+        console.log(json_descarga);
+        localStorage.setItem('mapa', JSON.stringify(json_descarga));
+        alert('Presione "Cargar cache"')
+        location.reload();
+      })
+
+      $("#agregar_columnas").click(function(){
+        let json_descarga = {
+          json_version: "1.0.0",
+          nombre: $("#map_nombre").val(),
+          version: $("#map_version").val(),
+          author: $("#map_author").val(),
+          material: [
+            $("#map_material_1").val(),
+            $("#map_material_2").val(),
+            $("#map_material_3").val(),
+            $("#map_material_4").val(),
+            $("#map_material_5").val(),
+            $("#map_material_6").val(),
+            $("#map_material_7").val(),
+          ],
+          mapeo: matris
+        }
+        for (let index = 0; index < json_descarga.mapeo.length; index++) {
+          for (let index2 = 0; index2 < $("#agregar_columnas_num").val(); index2++) {
+            json_descarga.mapeo[index].push(0);
+          }
+          //json_descarga.mapeo.push(json_descarga.mapeo[0]);
+          //delete json_descarga.mapeo[index];
+        }
+        console.log(json_descarga);
+        localStorage.setItem('mapa', JSON.stringify(json_descarga));
+        alert('Presione "Cargar cache"')
+        location.reload();
+      })
+
+      $("#borrar_filas").click(function(){
+        let json_descarga = {
+          json_version: "1.0.0",
+          nombre: $("#map_nombre").val(),
+          version: $("#map_version").val(),
+          author: $("#map_author").val(),
+          material: [
+            $("#map_material_1").val(),
+            $("#map_material_2").val(),
+            $("#map_material_3").val(),
+            $("#map_material_4").val(),
+            $("#map_material_5").val(),
+            $("#map_material_6").val(),
+            $("#map_material_7").val(),
+          ],
+          mapeo: matris
+        }
+        console.log(json_descarga);
+        for (let index = 0; index < $("#borrar_filas_num").val(); index++) {
+          json_descarga.mapeo.pop();
+        }
+        console.log(json_descarga);
+        localStorage.setItem('mapa', JSON.stringify(json_descarga));
+        alert('Presione "Cargar cache"')
+        location.reload();
+      })
+
+      $("#borrar_columnas").click(function(){
+        let json_descarga = {
+          json_version: "1.0.0",
+          nombre: $("#map_nombre").val(),
+          version: $("#map_version").val(),
+          author: $("#map_author").val(),
+          material: [
+            $("#map_material_1").val(),
+            $("#map_material_2").val(),
+            $("#map_material_3").val(),
+            $("#map_material_4").val(),
+            $("#map_material_5").val(),
+            $("#map_material_6").val(),
+            $("#map_material_7").val(),
+          ],
+          mapeo: matris
+        }
+        console.log(json_descarga);
+        for (let index2 = 0; index2 < json_descarga.mapeo.length; index2++) {
+          for (let index = 0; index < $("#borrar_columnas_num").val(); index++) {
+            json_descarga.mapeo[index2].pop();
+          }
+        }
+        
+        console.log(json_descarga);
+        localStorage.setItem('mapa', JSON.stringify(json_descarga));
+        alert('Presione "Cargar cache"')
+        location.reload();
+      })
+
+      $("#descargar_mapa").click(function(){
+
+        let json_descarga = {
+          json_version: "1.0.0",
+          nombre: $("#map_nombre").val(),
+          version: $("#map_version").val(),
+          author: $("#map_author").val(),
+          material: [
+            $("#map_material_1").val(),
+            $("#map_material_2").val(),
+            $("#map_material_3").val(),
+            $("#map_material_4").val(),
+            $("#map_material_5").val(),
+            $("#map_material_6").val(),
+            $("#map_material_7").val(),
+          ],
+          mapeo: matris
+        }
+
+        $("<a/>", {
+          "download": $("#map_nombre").val()+"_v"+$("#map_version").val()+".map",
+          "href": "data:application/json," + encodeURIComponent(JSON.stringify(json_descarga))
+        }).appendTo("body")
+        .click(function() {
+          $(this).remove()
+        })[0].click()
+      })
+
+//background-image: url(img/0.png);
+    </script>
+
+    <style>
+
+      .cuadrado, .cuadrado2{
+          background-size:cover;
+          margin: 1px;
+          height: 30px;
+          width: 35px;
+          margin-left: -8px;
+          transform: rotate(0deg);
+      }
+
+      .linea2 .cuadrado{
+          margin-top: -15px;
+      }
+
+      .grilla{
+          margin-top: 40px;
+          margin-left: 50px;
+          margin-bottom: 20px;
+      }
+      body{
+          width: 5000px;
+      }
+
+      .input_material{
+        width: 100px;
+      }
+
+      .input_file{
+        width: 400px;
+      }
+
+      .agregar_fila_columna{
+        width: 1200px;
+      }
+
+    </style>
+
+</body>
+</html>

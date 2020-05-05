@@ -1,0 +1,29 @@
+y-x
+
+(y-1) - (x) arriba
+(y-1) - (x-1) arriba izquierda
+(y-1) - (x+1) arriba derecha
+(y+1) - (x) abajo
+( (x%2 == 0)?y-1:y ) - (x-1) abajo izquierda
+( (x%2 == 0)?y-1:y ) - (x+1) abajo derecha
+
+
+
+4-4
+
+3-4 arriba
+3-3 arriba izquierda
+3-5 arriba derecha
+5-4 abajo
+4-3 abajo izquierda
+4-5 abajo derecha
+
+
+6-5
+
+5-5 arriba
+6-4 arriba izquierda
+6-6 arriba derecha
+7-5 abajo
+7-4 abajo izquierda
+7-6 abajo derecha

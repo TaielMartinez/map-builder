@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Creador de mapas</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="src/css/index.css">
+    <link rel="stylesheet" href="src/css/grid.css">
+    <link rel="stylesheet" href="src/css/toolbar.css">
+</head>
+<body>
+
+    <!-- Grid construct in src/js/grid.js -> construct_grid() -->
+    <div class="grid grid_0"></div>
+    <div class="grid grid_1"></div>
+    <div class="grid grid_2"></div>
+
+
+    <!-- Principal menu -->
+    <div class="open collapse" id="open_collapse">
+        <div class="open_select collapse" id="open_select_collapse">
+            <div class="row">
+                <div class="col-5 text-center">
+                    <img src="src/img/utils/rapido.png" alt="Mapa rapido" onclick="construct_grid()"> <!-- grid.js -->
+                </div>
+                <div class="col-5 text-center">
+                    <img src="src/img/utils/nuevo.png" alt="Mapa nuevo" onclick="new_map_menu()"> <!-- grid.js -->
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-5 text-center">
+                    <input type="file" name="file" id="file" class="inputfile"/>
+                    <label for="file" class="pr-4"><img src="src/img/utils/abrir.png" alt="Abrir mapa"></label>
+                    
+                </div>
+                <div class="col-5 text-center">
+                    <img src="src/img/utils/cache.png" alt="Cargar cache" onclick="construct_grid(false, false, false, true)"> <!-- grid.js -->
+                </div>
+            </div>
+        </div>
+
+        <!-- If click in "new map" open new_map_menu_collapse -->
+        <div class="new_map_menu collapse" id="new_map_menu_collapse">
+            <div class="row">
+                <div class="col-6">
+                    <button type="button" class="btn btn-dark" onclick="construct_grid(false, 10, 10)">10x10</button><br>
+                    <button type="button" class="btn btn-dark" onclick="construct_grid(false, 20, 20)">20x20</button><br>
+                    <button type="button" class="btn btn-dark" onclick="construct_grid(false, 30, 30)">30x30</button><br>
+                    <button type="button" class="btn btn-dark" onclick="construct_grid(false, 50, 50)">50x50</button><br>
+                    <button type="button" class="btn btn-dark" onclick="construct_grid(false, 130, 130)">130x130</button><br>
+                    <button type="button" class="btn btn-dark" onclick="construct_grid(false, 50, 150)">50x150</button><br>
+                    <button type="button" class="btn btn-dark" onclick="construct_grid(false, 150, 50)">150x50</button><br>
+
+                </div>
+                <div class="col-5 text-white">
+                    <br><br>
+                    <input class="form-control mt-4 new_map_menu_y" type="number" placeholder="Alto">
+
+                    <input class="form-control mt-4 new_map_menu_x" type="number" placeholder="Ancho">
+
+                    <button type="button" class="btn btn-primary mt-5" onclick="new_map_menu(true)">Generar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- .map comfing -->
+    <div class="map_config collapse" id="map_config_collapse">
+        <div class="config_bar">
+            <img src="src/img/utils/icon_arrow.png" alt="<" onclick="map_config_collapse()"> <!-- toolbar.js -->
+        </div>
+        
+        <div class="collapse" id="map_config_collapse_options">
+            <div class="ml-3 mr-3 mt-5 text-white">
+                <label class="mt-2">Nombre del mapa</label>
+                <input class="map_name form-control form-control-lg" type="text" value="Nuevo Mapa" placeholder="Nombre del mapa">
+
+                <div class="row mt-2">
+                    <div class="col-5">
+                        <label class="mt-2">Version</label>
+                        <input class="map_version form-control" type="number" value="1" placeholder="Version">
+                    </div>
+                    <div class="col-5">
+                        <label class="mt-2">Map ID</label>
+                        <input class="map_id form-control" type="text" placeholder="Map ID">
+                    </div>
+                </div>
+
+                <label class="mt-4">Author</label>
+                <input class="map_author form-control" type="text" placeholder="Author">
+
+                <h4 class="mt-4">Materiales</h4>
+                <div class="row mt-2">
+                    <div class="col-5"><input class="map_materials_0 form-control" type="number" placeholder="Madera"></div>
+                    <div class="col-5"><input class="map_materials_1 form-control" type="number" placeholder="Piedra"></div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-5"><input class="map_materials_2 form-control" type="number" placeholder="Metal"></div>
+                    <div class="col-5"><input class="map_materials_3 form-control" type="number" placeholder=""></div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-5"><input class="map_materials_4 form-control" type="number" placeholder=""></div>
+                    <div class="col-5"><input class="map_materials_5 form-control" type="number" placeholder=""></div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-5"><input class="map_materials_6 form-control" type="number" placeholder=""></div>
+                    <div class="col-5"><input class="map_materials_7 form-control" type="number" placeholder=""></div>
+                </div>
+
+                <button type="button" class="btn btn-success mt-5" onclick="download_map()">Descargar</button>
+                <button type="button" class="btn btn-success mt-5 ml-5" onclick="location.reload()">Nuevo mapa</button>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Control view -->
+    <div class="control_view collapse" id="control_view_collapse">
+        <div class="viewer"> <!-- toolbar.js view selected item -->
+            <div class="viewer_img"></div>
+        </div>
+        <div class="details">
+            <div class="ml-2 mt-2">
+                <p class="details_id"></p>
+                <p class="details_class"></p>
+                <p class="details_layer"></p>
+            </div>
+        </div>
+        <div class="hide"></div> <!-- this div is hide, JS test images in this div. Don't delete div-->
+        <div class="assests"></div> <!-- toolbar.js view other items png -->
+    </div>
+
+
+    <!-- Toolbar construct in src/js/toolbar.js -> construct_toolbar() -->
+    <div class="toolbar collapse" id="toolbar_collapse"></div>
+    <div class="toolbar toolbar_texture collapse" id="toolbar_texture_collapse"></div>
+    <div class="toolbar_object collapse" id="toolbar_object_collapse"></div>
+    
+
+    <!-- Input slidebar zoom for .grid -->
+    <div class="underbar collapse" id="underbar_collapse">
+        <input id="grid_zoom" class="ml-3" min="1" max="50" value='10' step="1" onchange="showVal(this.value)" type="range"/>
+        <input id="grid_zoom_num" type="number" value="10" aria-label="Small" onchange="showVal(this.value)" aria-describedby="inputGroup-sizing-sm">
+    </div>
+
+
+
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <script src="src/js/grid.js"></script>
+    <script src="src/js/index.js"></script>
+    <script src="src/js/toolbar.js"></script>
+    <script src="src/js/keyboard.js"></script>
+    
+</body>
+</html>
