@@ -125,21 +125,23 @@ function grid_click(y, x, butt){
 
     } else if(butt.button == 2) { // if rigth click
 
-        if(map.grid[y][x][2][0] == 0){}else{ // if .grid_2 is print -> clear and stop
-            map.grid[y][x][2] = [0, 0];
-            $('.grid_2 .'+y+'-'+x).css('background-image', 'url("src/img/sprite/2/0/0'+file_format+'")');
+        let a = map.grid[y][x];
+
+        map.grid[y][x][2] = [0, 0];
+        $('.grid_2 .'+y+'-'+x).css('background-image', 'url("src/img/sprite/2/0/0'+file_format+'")');
+        if(a[2][0] == 0){}else{ // if .grid_2 is print -> clear and stop
             return
         }
         
-        if(map.grid[y][x][1][0] == 0){}else{ // if .grid_1 is print -> clear and stop
-            map.grid[y][x][1] = [0, 0];
-            $('.grid_1 .'+y+'-'+x).css('background-image', 'url("src/img/sprite/1/0/0'+file_format+'")');
+        map.grid[y][x][1] = [0, 0];
+        $('.grid_1 .'+y+'-'+x).css('background-image', 'url("src/img/sprite/1/0/0'+file_format+'")');
+        if(a[1][0] == 0){}else{ // if .grid_1 is print -> clear and stop
             return
         }
         
-        if(map.grid[y][x][0][0] = 0){}else{ // if .grid_0 is print -> clear and stop
-            map.grid[y][x][0] == [0, 0];
-            $('.grid_0 .'+y+'-'+x).css('background-image', 'url("src/img/sprite/0/0/0'+file_format+'")');
+        map.grid[y][x][0] == [0, 0];
+        $('.grid_0 .'+y+'-'+x).css('background-image', 'url("src/img/sprite/0/0/0'+file_format+'")');
+        if(a[0][0] = 0){}else{ // if .grid_0 is print -> clear and stop
             return
         }
         

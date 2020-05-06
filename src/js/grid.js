@@ -1,10 +1,13 @@
+// debug mode
+var debug = true;
+
 // Principal menu
 function new_map_menu(val){
     if(val){  // y and x selected
         let map_y = $('.new_map_menu_y').val();
         let map_x = $('.new_map_menu_x').val();
-        console.log(map_y)
-        console.log(map_x)
+        if(debug)console.log('new_map_menu');console.log(map_y)
+        if(debug)console.log(map_x)
         construct_grid(false, map_y, map_x);
     } else {  // new map select
         $('#open_select_collapse').collapse('hide');
@@ -34,7 +37,7 @@ function onReaderLoad(event){
 // (false, false, false, false) is a new 50x50 grid generate
 function construct_grid(map_import, y, x, cache){
 
-    //console.log(map) // test log
+    if(debug)console.log(map) // test log
     // Show HUD in screen
     $('#open_collapse').collapse('hide');
     $('#map_config_collapse').collapse('show');
@@ -195,6 +198,18 @@ function rotation_cod(y, x, layer){
     }
 
     console.log(as)
+
+    $.getJSON("src/js/rotation_code.json", function(json) {
+        //console.log(json);
+        for (let index = 0; index < json.rotations.length; index++) {
+            if(as == json.rotations.index){
+                console.log(json)
+                return index;
+            }
+        }
+    });
+
+    
 }
 
 function fun_comp(val1, val2){
