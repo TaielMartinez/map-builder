@@ -3,22 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home - Map Creator</title>
+    <title>Editor - Map Creator</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 </head>
 <body style="background-color: #636363; text-align: center;">
     
-    <div style="background-color: #a1a1a1; display: flex; justify-content: center; display: inline-block; padding: 2%; border-radius: 20px; width: 80%; margin-top: 10%;">
-        <img src="src/img/utils/nuevo.png" style="border-radius: 20px;" onclick="new_map()">
-        <label for="file" style=" margin-left: 2%; margin-right: 2%;"><img src="src/img/utils/abrir.png" style="border-radius: 20px;"></label>
-        <img src="src/img/utils/cache.png" style="border-radius: 20px;" onclick="load_cache()">
-        <input type="file" name="file" id="file" accept=".map" class="open_map" style="display: none;"/>
-    </div>
+    
     
     
 
     <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-    <script src="src/index/index.js"></script>
+    <script src="../src/editor/tools.js"></script>
+    <script src="../src/editor/grid.js"></script>
+    <script src="../src/editor/global.js"></script>
 </body>
 </html>
