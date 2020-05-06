@@ -1,0 +1,20 @@
+{
+    "name": "",
+    "id": "",
+    "description": "",
+    "walkable": "",
+    "buildable": "",
+    "usable": "",
+    "loot": {
+        "material_1": 0,
+        "material_2": 0,
+        "material_3": 0,
+        "material_4": 0,
+        "material_5": 0,
+        "material_6": 0,
+        "material_7": 0,
+        "material_8": 0
+    },
+    "default_sprite": "",
+    "default_sprite_tools": ""
+}

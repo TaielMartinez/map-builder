@@ -4,7 +4,7 @@ $('.open_map').change(function(e){
     reader.onload = function(event){
         var obj = JSON.parse(event.target.result);
         console.log(obj)
-        localStorage.setItem('map', obj)
+        localStorage.setItem('map', JSON.stringify(obj))
         window.location.href = "/editor"
     }
     reader.readAsText(e.target.files[0]);
