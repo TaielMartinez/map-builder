@@ -33,7 +33,7 @@ function zoom_timer() {
     //if(detectZoom.device() > 1) zoom = 0.8; margin = 2
     //if(detectZoom.device() > 0.8) zoom = 0.6; margin = 1
 
-    zoom = ((detectZoom.device() ))
+    zoom = (6 + (detectZoom.device() * (-1)))/4
 
     if(debug) console.log(zoom)
     document.getElementById("inventory").style.transform = "scale("+zoom+" )";
