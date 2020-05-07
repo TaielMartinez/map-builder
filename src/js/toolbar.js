@@ -127,12 +127,12 @@ function grid_click(y, x, butt){
 
         let a = map.grid[y][x];
 
-        map.grid[y][x][2] = [0, 0];
-        $('.grid_2 .'+y+'-'+x).css('background-image', 'url("src/img/sprite/2/0/0'+file_format+'")');
-        if(a[2][0] == 0){}else{ // if .grid_2 is print -> clear and stop
-            return
-        }
-        
+        map.grid[y][x][tool_selected[0]] = [0, 0];
+        $('.grid_2 .'+y+'-'+x).css('background-image', 'url("src/img/sprite/'+tool_selected[0]+'/0/0'+file_format+'")');
+
+        //console.elo
+
+        /*
         map.grid[y][x][1] = [0, 0];
         $('.grid_1 .'+y+'-'+x).css('background-image', 'url("src/img/sprite/1/0/0'+file_format+'")');
         if(a[1][0] == 0){}else{ // if .grid_1 is print -> clear and stop
@@ -144,7 +144,7 @@ function grid_click(y, x, butt){
         if(a[0][0] = 0){}else{ // if .grid_0 is print -> clear and stop
             return
         }
-        
+        */
     }
 
     if(clicks_cache > 20){
